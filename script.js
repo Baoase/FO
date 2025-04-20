@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 beforeDraw(chart) {
                     const { width, height, ctx } = chart;
                     ctx.restore();
-                    ctx.font = 'bold 7px Arial';
+                    ctx.font = 'bold 8px Arial';
                     ctx.textBaseline = 'middle';
                     ctx.textAlign = 'center';
                     const text = `${Math.round(chart.data.datasets[0].data[0])}%`;

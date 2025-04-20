@@ -39,12 +39,23 @@ button:hover, a:hover {
     transform: translateY(-2px);
 }
 
-.team-progress-canvas {
-    width: 24px !important;
-    height: 24px !important;
-    max-width: 24px !important;
-    max-height: 24px !important;
-    min-width: 24px !important;
-    min-height: 24px !important;
+.team-progress-container {
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
     display: inline-block;
+    overflow: hidden;
+}
+
+.team-progress-canvas {
+    width: 20px !important;
+    height: 20px !important;
+    max-width: 20px !important;
+    max-height: 20px !important;
+    min-width: 20px !important;
+    min-height: 20px !important;
+    display: block;
 }
