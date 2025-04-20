@@ -1,0 +1,40 @@
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slide-in {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fade-in {
+    animation: fade-in 1s ease-in-out;
+}
+
+.animate-slide-in {
+    animation: slide-in 0.5s ease-in-out;
+}
+
+.task-checkbox:checked + label {
+    text-decoration: line-through;
+    color: #6b7280;
+}
+
+.initials-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+}
+
+button:hover, a:hover {
+    transform: translateY(-1px);
+}
+
+.agent-section {
+    transition: transform 0.2s;
+}
+
+.agent-section:hover {
+    transform: translateY(-2px);
+}
