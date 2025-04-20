@@ -1,165 +1,124 @@
-<script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
-        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
-            try {
-                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
-                var firstSheetName = workbook.SheetNames[0];
-                var worksheet = workbook.Sheets[firstSheetName];
-
-                // Convert sheet to JSON to filter blank rows
-                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
-                // Filter out blank rows (rows where all cells are empty, null, or undefined)
-                var filteredData = jsonData.filter(row => row.some(filledCell));
-
-                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
-                var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
-                );
-                // Fallback
-                if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
-                }
-
-                // Convert filtered JSON back to CSV
-                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
-                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
-                return csv;
-            } catch (e) {
-                console.error(e);
-                return "";
-            }
-        }
-        return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AM Shift Checklist</title>
+    <title>Agent 1 Checklist</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-blue-50 font-sans">
     <div class="container mx-auto p-6">
-        <h1 class="text-3xl font-bold text-blue-800 mb-4">AM Shift Checklist</h1>
+        <h1 class="text-4xl font-bold text-center text-blue-800 mb-4 animate-fade-in">Agent 1: First Responder Checklist</h1>
         <a href="index.html" class="text-blue-600 hover:underline mb-4 inline-block">&larr; Back to Dashboard</a>
 
-        <!-- Static Tasks -->
-        <div class="agent-section mb-8">
-            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Tasks</h2>
-            <ul class="space-y-2">
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Ensure all equipment is operational" data-agent="agent1">
-                    <label>Ensure all equipment is operational</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Check inventory levels" data-agent="agent1">
-                    <label>Check inventory levels</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Verify safety protocols" data-agent="agent1">
-                    <label>Verify safety protocols</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Inspect workstations" data-agent="agent1">
-                    <label>Inspect workstations</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Test emergency systems" data-agent="agent1">
-                    <label>Test emergency systems</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Review incident reports" data-agent="agent1">
-                    <label>Review incident reports</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Update logs" data-agent="agent1">
-                    <label>Update logs</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Conduct team briefing" data-agent="agent1">
-                    <label>Conduct team briefing</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Check communication devices" data-agent="agent1">
-                    <label>Check communication devices</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Inspect fire exits" data-agent="agent1">
-                    <label>Inspect fire exits</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Verify backup power" data-agent="agent1">
-                    <label>Verify backup power</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Check first aid kits" data-agent="agent1">
-                    <label>Check first aid kits</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Review schedules" data-agent="agent1">
-                    <label>Review schedules</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Test alarm systems" data-agent="agent1">
-                    <label>Test alarm systems</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Inspect lighting" data-agent="agent1">
-                    <label>Inspect lighting</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Check HVAC systems" data-agent="agent1">
-                    <label>Check HVAC systems</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Verify security cameras" data-agent="agent1">
-                    <label>Verify security cameras</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-                <li class="flex items-center space-x-2">
-                    <input type="checkbox" class="task-checkbox" data-task="Conduct safety drill" data-agent="agent1">
-                    <label>Conduct safety drill</label>
-                    <input type="text" class="initials-input border rounded px-1 py-0.5 w-12" maxlength="2" placeholder="Initials">
-                </li>
-            </ul>
+        <!-- Agent Progress -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Progress</h2>
+            <div class="w-full bg-gray-200 rounded-full h-4">
+                <div id="progress-agent1" class="bg-blue-600 h-4 rounded-full" style="width: 0%"></div>
+            </div>
+            <p class="text-sm font-medium mt-2">Agent 1 Progress: <span id="progress-agent1-text">0%</span></p>
         </div>
 
-        <!-- Shared Tasks -->
-        <div class="agent-section mb-8">
-            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Shared Tasks</h2>
-            <ul id="shared-tasks-list" class="space-y-2"></ul>
+        <!-- Tasks -->
+        <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow agent-section" data-agent="agent1">
+            <h3 class="text-xl font-medium text-blue-600 mb-4">AM Shift Tasks</h3>
+            <div class="space-y-3">
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task1" class="task-checkbox mr-2" data-task="Handover with Security the BO phone & BO key" data-agent="agent1">
+                    <label for="am1-task1" class="flex-1 text-gray-700">Handover with Security the BO phone & BO key</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task2" class="task-checkbox mr-2" data-task="Put pillows outside & fill dispenser with ice and water + 4 clean glasses" data-agent="agent1">
+                    <label for="am1-task2" class="flex-1 text-gray-700">Put pillows outside & fill dispenser with ice and water + 4 clean glasses</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task3" class="task-checkbox mr-2" data-task="Light candles, turn over Rituals sticks & turn on music" data-agent="agent1">
+                    <label for="am1-task3" class="flex-1 text-gray-700">Light candles, turn over Rituals sticks & turn on music</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task4" class="task-checkbox mr-2" data-task="Disinfect work station and all counters" data-agent="agent1">
+                    <label for="am1-task4" class="flex-1 text-gray-700">Disinfect work station and all counters</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task5" class="task-checkbox mr-2" data-task="Read factsheet & prepare for the day" data-agent="agent1">
+                    <label for="am1-task5" class="flex-1 text-gray-700">Read factsheet & prepare for the day</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task6" class="task-checkbox mr-2" data-task="Check WhatsApp & Whistle for new messages" data-agent="agent1">
+                    <label for="am1-task6" class="flex-1 text-gray-700">Check WhatsApp & Whistle for new messages</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task7" class="task-checkbox mr-2" data-task="Make new cash register Excel & check MEWS balance" data-agent="agent1">
+                    <label for="am1-task7" class="flex-1 text-gray-700">Make new cash register Excel & check MEWS balance</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task8" class="task-checkbox mr-2" data-task="Check agenda, MEWS, Taxi Cue & 24/07" data-agent="agent1">
+                    <label for="am1-task8" class="flex-1 text-gray-700">Check agenda, MEWS, Taxi Cue & 24/07</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task9" class="task-checkbox mr-2" data-task="Confirm VIPs in VIP group chat" data-agent="agent1">
+                    <label for="am1-task9" class="flex-1 text-gray-700">Confirm VIPs in VIP group chat</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task10" class="task-checkbox mr-2" data-task="Confirm daily massage appointments" data-agent="agent1">
+                    <label for="am1-task10" class="flex-1 text-gray-700">Confirm daily massage appointments</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task11" class="task-checkbox mr-2" data-task="Make receipts for massages/mani-pedi/hair" data-agent="agent1">
+                    <label for="am1-task11" class="flex-1 text-gray-700">Make receipts for massages/mani-pedi/hair</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task12" class="task-checkbox mr-2" data-task="Sort restaurant receipts & check all" data-agent="agent1">
+                    <label for="am1-task12" class="flex-1 text-gray-700">Sort restaurant receipts & check all</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task13" class="task-checkbox mr-2" data-task="Do check-outs first, prepare folio" data-agent="agent1">
+                    <label for="am1-task13" class="flex-1 text-gray-700">Do check-outs first, prepare folio</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task14" class="task-checkbox mr-2" data-task="Check restaurant receipts & file in guest folio" data-agent="agent1">
+                    <label for="am1-task14" class="flex-1 text-gray-700">Check restaurant receipts & file in guest folio</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task15" class="task-checkbox mr-2" data-task="Check billing for next day check-outs" data-agent="agent1">
+                    <label for="am1-task15" class="flex-1 text-gray-700">Check billing for next day check-outs</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task16" class="task-checkbox mr-2" data-task="Make check-out letter & print invoice preview" data-agent="agent1">
+                    <label for="am1-task16" class="flex-1 text-gray-700">Make check-out letter & print invoice preview</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task17" class="task-checkbox mr-2" data-task="Put arrival backup files in guest info map" data-agent="agent1">
+                    <label for="am1-task17" class="flex-1 text-gray-700">Put arrival backup files in guest info map</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+                <div class="flex items-center">
+                    <input type="checkbox" id="am1-task18" class="task-checkbox mr-2" data-task="Handover with PM shift and count cash register" data-agent="agent1">
+                    <label for="am1-task18" class="flex-1 text-gray-700">Handover with PM shift and count cash register</label>
+                    <input type="text" maxlength="2" class="initials-input w-12 border rounded px-2 py-1" placeholder="Initials">
+                </div>
+            </div>
         </div>
     </div>
 
     <script src="script.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            renderSharedTasks('agent1');
-        });
-    </script>
 </body>
 </html>

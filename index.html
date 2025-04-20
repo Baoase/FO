@@ -52,81 +52,26 @@
         <p class="text-center text-gray-600 mb-8">"Interdependent people combine their own efforts with the efforts of others to achieve their greatest success."</p>
 
         <!-- Team Progress -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-semibold text-blue-700 mb-4 text-center">Team Productivity</h2>
-            <div class="w-full bg-gray-200 rounded-full h-6 mb-2">
-                <div id="progress-team" class="bg-blue-500 h-6 rounded-full" style="width: 0%"></div>
-            </div>
-            <p class="text-center text-sm font-medium" id="progress-team-text">0%</p>
-        </div>
-
-        <!-- Agent Progress Overview -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Agent Progress</h2>
-            <div class="space-y-4">
-                <div>
-                    <p class="text-blue-600 font-medium">AM Shift</p>
-                    <div class="w-full bg-gray-200 rounded-full h-4">
-                        <div id="progress-agent1" class="bg-blue-500 h-4 rounded-full" style="width: 0%"></div>
-                    </div>
-                    <p class="text-sm font-medium" id="progress-agent1-text">0%</p>
-                </div>
-                <div>
-                    <p class="text-blue-600 font-medium">Mid Shift</p>
-                    <div class="w-full bg-gray-200 rounded-full h-4">
-                        <div id="progress-agent2" class="bg-blue-500 h-4 rounded-full" style="width: 0%"></div>
-                    </div>
-                    <p class="text-sm font-medium" id="progress-agent2-text">0%</p>
-                </div>
-                <div>
-                    <p class="text-blue-600 font-medium">PM Shift</p>
-                    <div class="w-full bg-gray-200 rounded-full h-4">
-                        <div id="progress-agent3" class="bg-blue-500 h-4 rounded-full" style="width: 0%"></div>
-                    </div>
-                    <p class="text-sm font-medium" id="progress-agent3-text">0%</p>
-                </div>
-                <div>
-                    <p class="text-blue-600 font-medium">Start-Up AM Shift</p>
-                    <div class="w-full bg-gray-200 rounded-full h-4">
-                        <div id="progress-agent4" class="bg-blue-500 h-4 rounded-full" style="width: 0%"></div>
-                    </div>
-                    <p class="text-sm font-medium" id="progress-agent4-text">0%</p>
-                </div>
-                <div>
-                    <p class="text-blue-600 font-medium">Start-Up PM Shift</p>
-                    <div class="w-full bg-gray-200 rounded-full h-4">
-                        <div id="progress-agent5" class="bg-blue-500 h-4 rounded-full" style="width: 0%"></div>
-                    </div>
-                    <p class="text-sm font-medium" id="progress-agent5-text">0%</p>
+        <div class="mb-8 text-center">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Team Productivity</h2>
+            <div class="team-progress-container">
+                <div class="radial-progress" id="team-progress-circle">
+                    <span class="progress-text" id="team-progress-text">0%</span>
                 </div>
             </div>
+            <p class="text-sm font-medium mt-2">Team Progress</p>
         </div>
 
         <!-- Navigation to Agent Pages -->
         <div class="mb-8">
             <h2 class="text-2xl font-semibold text-blue-700 mb-4">Agent Checklists</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <a href="agent1.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">AM Shift</a>
-                <a href="agent2.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">Mid Shift</a>
-                <a href="agent3.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">PM Shift</a>
-                <a href="agent4.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">Start-Up AM Shift</a>
-                <a href="agent5.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">Start-Up PM Shift</a>
+                <a href="agent1.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">Agent 1: First Responder</a>
+                <a href="agent2.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">Agent 2: Position 2</a>
+                <a href="agent3.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">Agent 3: Position 3</a>
+                <a href="agent4.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">Agent 4: Position 4</a>
+                <a href="agent5.html" class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl transition-shadow text-center text-blue-600 font-medium">Agent 5: Position 5</a>
             </div>
-        </div>
-
-        <!-- Add New Task -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Assign New Task</h2>
-            <div class="flex space-x-4">
-                <input type="text" id="new-task-input" class="border rounded px-2 py-1 w-full" placeholder="e.g., Check room 201">
-                <button id="add-task" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition-colors">Add Task</button>
-            </div>
-        </div>
-
-        <!-- Initiative Tracking -->
-        <div class="mb-8">
-            <h2 class="text-2xl font-semibold text-blue-700 mb-4">Initiative Tracking</h2>
-            <ul id="initiative-list" class="space-y-2"></ul>
         </div>
 
         <!-- Report and History Section -->
