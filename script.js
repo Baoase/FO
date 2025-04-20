@@ -28,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 circumference: 360,
                 rotation: -90,
                 cutout: '80%',
+                responsive: false,
+                maintainAspectRatio: true,
                 plugins: {
                     legend: { display: false },
                     tooltip: { enabled: false }
@@ -39,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 beforeDraw(chart) {
                     const { width, height, ctx } = chart;
                     ctx.restore();
-                    ctx.font = 'bold 8px Arial';
+                    ctx.font = 'bold 6px Arial';
                     ctx.textBaseline = 'middle';
                     ctx.textAlign = 'center';
                     const text = `${Math.round(chart.data.datasets[0].data[0])}%`;

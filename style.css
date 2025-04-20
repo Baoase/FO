@@ -38,3 +38,11 @@ button:hover, a:hover {
 .agent-section:hover {
     transform: translateY(-2px);
 }
+
+.team-progress-canvas {
+    width: 30px !important;
+    height: 30px !important;
+    max-width: 30px !important;
+    max-height: 30px !important;
+    display: inline-block;
+}
