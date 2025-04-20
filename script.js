@@ -12,47 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const today = new Date().toISOString().split('T')[0];
     let completedTasks = JSON.parse(localStorage.getItem(`tasks-${today}`)) || [];
 
-    // Initialize team progress chart (only on index.html)
-    let teamChart = null;
-    if (document.getElementById('progress-team')) {
-        teamChart = new Chart(document.getElementById('progress-team'), {
-            type: 'doughnut',
-            data: {
-                datasets: [{
-                    data: [0, 100],
-                    backgroundColor: ['#3b82f6', '#e5e7eb'],
-                    borderWidth: 0
-                }]
-            },
-            options: {
-                circumference: 360,
-                rotation: -90,
-                cutout: '80%',
-                responsive: false,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: { enabled: false }
-                },
-                animation: { animateScale: true }
-            },
-            plugins: [{
-                id: 'textCenter',
-                beforeDraw(chart) {
-                    const { width, height, ctx } = chart;
-                    ctx.restore();
-                    ctx.font = 'bold 8px Arial';
-                    ctx.textBaseline = 'middle';
-                    ctx.textAlign = 'center';
-                    const text = `${Math.round(chart.data.datasets[0].data[0])}%`;
-                    ctx.fillText(text, width / 2, height / 2);
-                    ctx.save();
-                }
-            }]
-        });
-    }
-
-    // Update progress bars and team chart
+    // Update progress bars and team circle
     function updateProgress() {
         const agentProgress = {
             agent1: 0,
@@ -79,13 +39,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Update team chart
-        if (teamChart) {
-            const totalTasks = Object.values(taskCounts).reduce((a, b) => a + b, 0);
-            const totalCompleted = Object.values(agentProgress).reduce((a, b) => a + b, 0);
-            const teamPercentage = (totalCompleted / totalTasks) * 100;
-            teamChart.data.datasets[0].data = [teamPercentage, 100 - teamPercentage];
-            teamChart.update();
+        // Update team progress circle
+        const totalTasks = Object.values(taskCounts).reduce((a, b) => a + b, 0);
+        const totalCompleted = Object.values(agentProgress).reduce((a, b) => a + b, 0);
+        const teamPercentage = (totalCompleted / totalTasks) * 100;
+        const circle = document.getElementById('team-progress-circle');
+        const text = document.getElementById('team-progress-text');
+        if (circle && text) {
+            circle.style.background = `conic-gradient(#3b82f6 ${teamPercentage * 3.6}deg, #e5e7eb ${teamPercentage * 3.6}deg 360deg)`;
+            text.textContent = `${Math.round(teamPercentage)}%`;
+            console.log(`Team progress circle size: ${circle.offsetWidth}x${circle.offsetHeight}px, Percentage: ${teamPercentage}%`);
         }
     }
 

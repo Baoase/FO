@@ -44,11 +44,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Back Office Checklist Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-blue-50 font-sans">
-    <div class="container mx-auto p-6">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 1.5rem;">
         <h1 class="text-4xl font-bold text-center text-blue-800 mb-4 animate-fade-in">Back Office Checklist Dashboard</h1>
         <p class="text-center text-gray-600 mb-8">"Interdependent people combine their own efforts with the efforts of others to achieve their greatest success."</p>
 
@@ -56,7 +55,9 @@
         <div class="mb-8 text-center">
             <h2 class="text-2xl font-semibold text-blue-700 mb-4">Team Productivity</h2>
             <div class="team-progress-container">
-                <canvas id="progress-team" width="20" height="20" class="team-progress-canvas"></canvas>
+                <div class="radial-progress" id="team-progress-circle">
+                    <span class="progress-text" id="team-progress-text">0%</span>
+                </div>
             </div>
             <p class="text-sm font-medium mt-2">Team Progress</p>
         </div>
